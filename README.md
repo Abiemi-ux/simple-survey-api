@@ -80,9 +80,9 @@ for documented example requests against every endpoint.
 - Survey responses and question reads are intentionally public/unauthenticated,
   since respondents filling out a survey shouldn't need an account.
   Writes to surveys/questions and the responses *list* require login.
-- File uploads (certificates) are stored on local disk, not cloud object
-  storage — acceptable for the scope of this task, but would need
-  swapping to S3/Render disk persistence for real production use, since
-  Render's filesystem isn't guaranteed to persist across deploys.
+- File uploads (certificates) are stored on the local filesystem rather than cloud object storage.
+  This is acceptable for the scope of this task, but on Render these files exist only
+  for the lifetime of a running application instance. They are lost whenever the service is
+  restarted or redeployed because the filesystem is ephemeral.
 - One survey response = one submission; there's no draft-saving or
   resuming a partially-completed survey.
