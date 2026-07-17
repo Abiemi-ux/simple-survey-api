@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-from logging import config
+
 import os
+from decouple import config
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -29,6 +30,7 @@ SECRET_KEY = 'django-insecure-b3!&4*6@pt@0el!m-#e&4ne^3#*w-^)3jt47#rpi&0cy#u@rwj
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = config('SECRET_KEY')
 
 ALLOWED_HOSTS = []
 
