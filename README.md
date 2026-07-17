@@ -3,6 +3,16 @@
 A Django REST Framework API for a survey platform. All requests and
 responses are XML (no JSON anywhere in the API surface).
 
+## Live Demo
+
+- **API base URL:** https://simple-survey-api-iow2.onrender.com/api
+- **Example endpoint:** https://simple-survey-api-iow2.onrender.com/api/surveys
+- **Admin panel:** https://simple-survey-api-iow2.onrender.com/admin/
+
+> Hosted on Render's free tier — the service spins down after periods of
+> inactivity, so the first request after idle time may take 30–60 seconds
+> to respond while it wakes up.
+
 ## Prerequisites
 
 - Python 3.12+
