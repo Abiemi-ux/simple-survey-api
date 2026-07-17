@@ -63,7 +63,6 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    "https://simple-survey-api-iow2.onrender.com",
     "https://simple-survey-web.onrender.com",
     "http://127.0.0.1:8001",
     "http://localhost:8001",
