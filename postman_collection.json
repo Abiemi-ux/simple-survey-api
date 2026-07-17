@@ -1,0 +1,338 @@
+{
+  "info": {
+    "name": "Sky World Survey Platform API",
+    "description": "REST API for the Survey Platform pre-interview task. All responses are XML. Base URL is controlled by the {{base_url}} variable.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://127.0.0.1:8000/api" },
+    { "key": "survey_id", "value": "1" },
+    { "key": "question_id", "value": "1" },
+    { "key": "certificate_id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Surveys",
+      "item": [
+        {
+          "name": "Create Survey",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": {
+              "mode": "raw",
+              "raw": "<survey>\n<name>Graduate Developer Application Survey</name>\n<description>Initial candidate screening survey</description>\n</survey>",
+              "options": { "raw": { "language": "xml" } }
+            },
+            "url": { "raw": "{{base_url}}/surveys", "host": ["{{base_url}}"], "path": ["surveys"] }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<survey id=\"1\"><name>Graduate Developer Application Survey</name><description>Initial candidate screening survey</description></survey>"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Surveys",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/surveys", "host": ["{{base_url}}"], "path": ["surveys"] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<surveys><survey id=\"1\"><name>Graduate Developer Application Survey</name><description>Initial candidate screening survey</description></survey><survey id=\"2\"><name>Internship Application Survey</name><description>Internship application survey</description></survey></surveys>"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Single Survey",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}"] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<survey id=\"1\"><name>Graduate Developer Application Survey</name><description>Initial candidate screening survey</description></survey>"
+            }
+          ]
+        },
+        {
+          "name": "Edit Survey",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": {
+              "mode": "raw",
+              "raw": "<survey>\n<name>Updated Survey Name</name>\n<description>Updated description</description>\n</survey>",
+              "options": { "raw": { "language": "xml" } }
+            },
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}"] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<survey id=\"1\"><name>Updated Survey Name</name><description>Updated description</description></survey>"
+            }
+          ]
+        },
+        {
+          "name": "Delete Survey",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}"] }
+          },
+          "response": [{ "name": "204 No Content", "status": "No Content", "code": 204, "header": [], "body": "" }]
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "Create Question (short_text)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": {
+              "mode": "raw",
+              "raw": "<question name=\"full_name\" type=\"short_text\" required=\"yes\">\n<text>What is your full name?</text>\n<description>[Surname] [First Name] [Other Names]</description>\n</question>",
+              "options": { "raw": { "language": "xml" } }
+            },
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions"] }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question id=\"1\" name=\"full_name\" type=\"short_text\" required=\"yes\"><text>What is your full name?</text><description>[Surname] [First Name] [Other Names]</description></question>"
+            }
+          ]
+        },
+        {
+          "name": "Create Question (choice, multiple)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": {
+              "mode": "raw",
+              "raw": "<question name=\"programming_stack\" type=\"choice\" required=\"yes\">\n<text>What programming stack are you familiar with?</text>\n<description>You can select multiple</description>\n<options multiple=\"yes\">\n<option value=\"REACT\">React JS</option>\n<option value=\"ANGULAR\">Angular</option>\n<option value=\"VUE\">Vue JS</option>\n</options>\n</question>",
+              "options": { "raw": { "language": "xml" } }
+            },
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions"] }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question id=\"2\" name=\"programming_stack\" type=\"choice\" required=\"yes\"><text>What programming stack are you familiar with?</text><description>You can select multiple</description><options multiple=\"yes\"><option value=\"REACT\">React JS</option><option value=\"ANGULAR\">Angular</option><option value=\"VUE\">Vue JS</option></options></question>"
+            }
+          ]
+        },
+        {
+          "name": "Create Question (file upload)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": {
+              "mode": "raw",
+              "raw": "<question name=\"certificates\" type=\"file\" required=\"yes\">\n<text>Upload any of your certificates?</text>\n<description>You can upload multiple (.pdf)</description>\n</question>",
+              "options": { "raw": { "language": "xml" } }
+            },
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions"] }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question id=\"3\" name=\"certificates\" type=\"file\" required=\"yes\"><text>Upload any of your certificates?</text><description>You can upload multiple (.pdf)</description><file_properties format=\".pdf\" max_file_size=\"1\" max_file_size_unit=\"mb\" multiple=\"no\" /></question>"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Survey Questions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions"] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<questions><question id=\"1\" name=\"full_name\" type=\"short_text\" required=\"yes\"><text>What is your full name?</text><description>[Surname] [First Name] [Other Names]</description></question></questions>"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Single Question",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions/{{question_id}}", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions", "{{question_id}}"] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question id=\"1\" name=\"full_name\" type=\"short_text\" required=\"yes\"><text>What is your full name?</text><description>[Surname] [First Name] [Other Names]</description></question>"
+            }
+          ]
+        },
+        {
+          "name": "Edit Question",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/xml" }],
+            "body": {
+              "mode": "raw",
+              "raw": "<question name=\"full_name\" type=\"short_text\" required=\"yes\">\n<text>What is your full legal name?</text>\n<description>Updated description</description>\n</question>",
+              "options": { "raw": { "language": "xml" } }
+            },
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions/{{question_id}}", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions", "{{question_id}}"] }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question id=\"1\" name=\"full_name\" type=\"short_text\" required=\"yes\"><text>What is your full legal name?</text><description>Updated description</description></question>"
+            }
+          ]
+        },
+        {
+          "name": "Delete Question",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/questions/{{question_id}}", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "questions", "{{question_id}}"] }
+          },
+          "response": [{ "name": "204 No Content", "status": "No Content", "code": 204, "header": [], "body": "" }]
+        }
+      ]
+    },
+    {
+      "name": "Survey Responses",
+      "item": [
+        {
+          "name": "Submit Survey Response",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "full_name", "value": "Jane Doe", "type": "text" },
+                { "key": "email_address", "value": "janedoe@gmail.com", "type": "text" },
+                { "key": "description", "value": "I am an experienced Frontend Engineer.", "type": "text" },
+                { "key": "gender", "value": "FEMALE", "type": "text" },
+                { "key": "programming_stack", "value": "REACT", "type": "text" },
+                { "key": "programming_stack", "value": "VUE", "type": "text" },
+                { "key": "certificates", "type": "file", "src": [] },
+                { "key": "certificates", "type": "file", "src": [] }
+              ]
+            },
+            "url": { "raw": "{{base_url}}/surveys/{{survey_id}}/responses", "host": ["{{base_url}}"], "path": ["surveys", "{{survey_id}}", "responses"] }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question_response><full_name>Jane Doe</full_name><email_address>janedoe@gmail.com</email_address><description>I am an experienced Frontend Engineer.</description><gender>FEMALE</gender><programming_stack>REACT,VUE</programming_stack><certificates><certificate>Adobe Certification.pdf</certificate><certificate>Figma Fundamentals.pdf</certificate></certificates><date_responded>2026-06-05 12:30:12</date_responded></question_response>"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Survey Responses (paginated + filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/surveys/{{survey_id}}/responses?page=1&pageSize=10&email=jane@gmail.com",
+              "host": ["{{base_url}}"],
+              "path": ["surveys", "{{survey_id}}", "responses"],
+              "query": [
+                { "key": "page", "value": "1" },
+                { "key": "pageSize", "value": "10" },
+                { "key": "email", "value": "jane@gmail.com" }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "xml",
+              "header": [{ "key": "Content-Type", "value": "application/xml" }],
+              "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<question_responses current_page=\"1\" last_page=\"1\" page_size=\"10\" total_count=\"1\"><question_response><response_id>1</response_id><full_name>Jane Doe</full_name><email_address>janedoe@gmail.com</email_address><description>I am an experienced Frontend Engineer.</description><gender>FEMALE</gender><programming_stack>REACT,VUE</programming_stack><certificates><certificate id=\"1\">Adobe Certification.pdf</certificate><certificate id=\"2\">Figma Fundamentals.pdf</certificate></certificates><date_responded>2026-06-05 12:30:12</date_responded></question_response></question_responses>"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Certificates",
+      "item": [
+        {
+          "name": "Download Certificate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/certificates/{{certificate_id}}", "host": ["{{base_url}}"], "path": ["certificates", "{{certificate_id}}"] }
+          },
+          "response": [
+            {
+              "name": "200 OK (binary file)",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Disposition", "value": "attachment; filename=Adobe Certification.pdf" }],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
