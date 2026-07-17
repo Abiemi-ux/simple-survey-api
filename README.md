@@ -9,6 +9,10 @@ responses are XML (no JSON anywhere in the API surface).
 - **Example endpoint:** https://simple-survey-api-iow2.onrender.com/api/surveys
 - **Admin panel:** https://simple-survey-api-iow2.onrender.com/admin/
 
+ **Admin Test Credentials**
+-username: admin
+-password: 12345678
+
 > Hosted on Render's free tier — the service spins down after periods of
 > inactivity, so the first request after idle time may take 30–60 seconds
 > to respond while it wakes up.
